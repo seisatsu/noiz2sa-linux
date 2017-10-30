@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -e noiz2sa ];
+if [ -e src/noiz2sa ];
 then
 	printf "Copying files\n"
 else
@@ -10,7 +10,7 @@ else
 	exit 1
 fi
 
-if mkdir /usr/share/games/noiz2sa; then
+if mkdir -p /usr/share/games/noiz2sa; then
 	printf "Share files directory created\n"
 else
 	printf "This script must be run as root\n"
@@ -38,7 +38,7 @@ else
 	exit 1
 fi
 
-if cp -p noiz2sa /usr/bin; then
+if cp -p src/noiz2sa /usr/bin; then
 	printf "/usr/bin/noiz2sa copied\n"
 else
 	printf "This script must be run as root\n"
