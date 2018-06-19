@@ -31,6 +31,7 @@
 
 #include <iterator>
 #include <map>
+#include <cstdlib>
 
 #ifdef __USING_STRINGSTREAM___
 #	include <sstream>
