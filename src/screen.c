@@ -40,6 +40,7 @@ static int pitch, ppitch;
 // Handle BMP images.
 #define SPRITE_NUM 7
 #define SHARE_LOC "/usr/share/games/noiz2sa/"
+#define LOCAL_SHARE_LOC "./noiz2sa_share/"
 
 static SDL_Surface *sprite[SPRITE_NUM];
 static char *spriteFile[SPRITE_NUM] = {
@@ -62,9 +63,15 @@ static void loadSprites() {
     strcat(name, spriteFile[i]);
     img = SDL_LoadBMP(name);
     if ( img == NULL ) {
-      fprintf(stderr, "Unable to load: %s\n", name);
-      SDL_Quit();
-      exit(1);
+      strcpy(name, LOCAL_SHARE_LOC);
+      strcat(name, "images/");
+      strcat(name, spriteFile[i]);
+      img = SDL_LoadBMP(name);
+      if ( img == NULL ) {
+        fprintf(stderr, "Unable to load: %s\n", name);
+        SDL_Quit();
+        exit(1);
+      }
     }
     sprite[i] = SDL_ConvertSurface(img,
 				   video->format,

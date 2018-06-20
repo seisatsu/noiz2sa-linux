@@ -28,6 +28,7 @@ extern "C" {
 
 #define BARRAGE_PATTERN_MAX 32
 #define SHARE_LOC "/usr/share/games/noiz2sa/"
+#define LOCAL_SHARE_LOC "./noiz2sa_share/"
 
 static Barrage barragePattern[BARRAGE_TYPE_NUM][BARRAGE_PATTERN_MAX];
 static Barrage *barrageQueue[BARRAGE_TYPE_NUM][BARRAGE_PATTERN_MAX];
@@ -50,8 +51,12 @@ static int readBulletMLFiles(const char *dirPath, Barrage brg[]) {
   strcat(fullDirPath, dirPath);
 
   if ( (dp = opendir(fullDirPath)) == NULL ) {
-    fprintf(stderr, "Can't open directory: %s\n", dirPath);
-    exit(1);
+    strcpy(fullDirPath, LOCAL_SHARE_LOC);
+    strcat(fullDirPath, dirPath);
+    if ( (dp = opendir(fullDirPath)) == NULL ) {
+      fprintf(stderr, "Can't open directory: %s\n", dirPath);
+      exit(1);
+    }
   }
   while ((dir = readdir(dp)) != NULL) {
     if ( strcmp(strrchr(dir->d_name, '.'), ".xml") != 0 ) continue; // Read .xml files.

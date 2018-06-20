@@ -22,6 +22,7 @@ static int useAudio = 0;
 
 #define MUSIC_NUM 7
 #define SHARE_LOC "/usr/share/games/noiz2sa/"
+#define LOCAL_SHARE_LOC "./noiz2sa_share/"
 
 static char *musicFileName[MUSIC_NUM] = {
   "stg0.ogg", "stg1.ogg", "stg2.ogg", "stg3.ogg", "stg4.ogg", "stg5.ogg", "stg00.ogg",
@@ -67,9 +68,14 @@ static void loadSounds() {
     strcat(name, "sounds/");
     strcat(name, musicFileName[i]);
     if ( NULL == (music[i] = Mix_LoadMUS(name)) ) {
-      fprintf(stderr, "Couldn't load: %s\n", name);
-      useAudio = 0;
-      return;
+      strcpy(name, LOCAL_SHARE_LOC);
+      strcat(name, "sounds/");
+      strcat(name, musicFileName[i]);
+      if ( NULL == (music[i] = Mix_LoadMUS(name)) ) {
+        fprintf(stderr, "Couldn't load: %s\n", name);
+        useAudio = 0;
+        return;
+      }
     }
   }
   for ( i=0 ; i<CHUNK_NUM ; i++ ) {
@@ -77,9 +83,14 @@ static void loadSounds() {
     strcat(name, "sounds/");
     strcat(name, chunkFileName[i]);
     if ( NULL == (chunk[i] = Mix_LoadWAV(name)) ) {
-      fprintf(stderr, "Couldn't load: %s\n", name);
-      useAudio = 0;
-      return;
+      strcpy(name, LOCAL_SHARE_LOC);
+      strcat(name, "sounds/");
+      strcat(name, chunkFileName[i]);
+      if ( NULL == (chunk[i] = Mix_LoadWAV(name)) ) {
+        fprintf(stderr, "Couldn't load: %s\n", name);
+        useAudio = 0;
+        return;
+      }
     }
     chunkFlag[i] = 0;
   }
