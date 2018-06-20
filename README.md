@@ -3,7 +3,6 @@
 INSTALLING
 ----------
 
-* Enter "src/bulletml" and make.
-* Ascend into "src" and make.
-* Install the noiz2sa_share directory to "/usr/share/games/noiz2sa".
-* Run the noiz2sa executable.
+* Run "make" in the top level build directory.
+* Run "install.sh" in the top level build directory.
+* Run "noiz2sa".
