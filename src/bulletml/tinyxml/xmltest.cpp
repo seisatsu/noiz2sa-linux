@@ -1,5 +1,7 @@
 #include "tinyxml.h"
 
+#include <stdlib.h>
+
 //
 // This file demonstrates some basic functionality of TinyXml.
 // Note that the example is very contrived. It presumes you know
